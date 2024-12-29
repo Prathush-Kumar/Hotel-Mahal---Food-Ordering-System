@@ -1,0 +1,214 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Main {
+    public static void main(String[] args) {
+        System.out.println("Welcome To the Hotel Mahal!!");
+        Hotel hotel = new Hotel();
+        hotel.selectionOfFoodSection();
+    }
+}
+
+class Hotel {
+    Scanner sc = new Scanner(System.in);
+    ArrayList<String> selectedItems = new ArrayList<>();
+    int totalAmount = 0;
+
+    void selectionOfFoodSection() {
+        System.out.println("Please select a food section:");
+        System.out.println("1. Veg section");
+        System.out.println("2. Non-Veg section");
+        System.out.println("3. Both Veg and Non-Veg section");
+
+        int food = sc.nextInt();
+        sc.nextLine();
+
+        if (food == 1) {
+            System.out.println("Welcome to the Veg Section");
+            totalAmount += vegSection();
+        } else if (food == 2) {
+            System.out.println("Welcome to the Non-Veg Section");
+            totalAmount += nonVegSection();
+        } else if (food == 3) {
+            System.out.println("Welcome to Both Veg and Non-Veg Section");
+            totalAmount += vegSection();
+            totalAmount += nonVegSection();
+        } else {
+            System.out.println("Invalid selection. Please choose a valid option.");
+            return;
+        }
+
+        printTotalBill();
+    }
+
+    int vegSection() {
+        int sectionAmount = 0;
+
+        System.out.println("Please select Veg Starters (Enter '0' to skip):");
+        System.out.println("1. Paneer Tikka - 150");
+        System.out.println("2. Veg Pakoras - 100");
+        System.out.println("3. Veg Samosas - 80");
+        sectionAmount += selectItems("Starters");
+
+        System.out.println("Please select Veg Food (Enter '0' to skip):");
+        System.out.println("1. Veg Biryani - 250");
+        System.out.println("2. Paneer Butter Masala - 300");
+        System.out.println("3. Veg Pulao - 180");
+        sectionAmount += selectItems("Food");
+
+        System.out.println("Please select Veg Drinks (Enter '0' to skip):");
+        System.out.println("1. Lemonade - 50");
+        System.out.println("2. Fruit Juice - 70");
+        System.out.println("3. Coconut Water - 60");
+        sectionAmount += selectItems("Drinks");
+
+        System.out.println("Please select Veg Desserts (Enter '0' to skip):");
+        System.out.println("1. Gulab Jamun - 120");
+        System.out.println("2. Rasgulla - 100");
+        System.out.println("3. Ice Cream - 150");
+        sectionAmount += selectItems("Desserts");
+
+        return sectionAmount;
+    }
+
+    int nonVegSection() {
+        int sectionAmount = 0;
+
+        System.out.println("Please select Non-Veg Starters (Enter '0' to skip):");
+        System.out.println("1. Chicken Tikka - 200");
+        System.out.println("2. Fish Fry - 250");
+        System.out.println("3. Mutton Seekh Kebab - 300");
+        sectionAmount += selectItems("Starters");
+
+        System.out.println("Please select Non-Veg Food (Enter '0' to skip):");
+        System.out.println("1. Chicken Biryani - 350");
+        System.out.println("2. Mutton Curry - 400");
+        System.out.println("3. Fish Curry - 350");
+        sectionAmount += selectItems("Food");
+
+        System.out.println("Please select Non-Veg Drinks (Enter '0' to skip):");
+        System.out.println("1. Buttermilk - 60");
+        System.out.println("2. Fresh Lime Soda - 80");
+        System.out.println("3. Beer - 150");
+        sectionAmount += selectItems("Drinks");
+
+        System.out.println("Please select Non-Veg Desserts (Enter '0' to skip):");
+        System.out.println("1. Gajar ka Halwa - 130");
+        System.out.println("2. Mutton Kheer - 200");
+        System.out.println("3. Kulfi - 180");
+        sectionAmount += selectItems("Desserts");
+
+        return sectionAmount;
+    }
+
+    int selectItems(String category) {
+        int total = 0;
+        System.out.println("Enter item number to select (Enter '0' to finish " + category + " selection):");
+        while (true) {
+            int item = sc.nextInt();
+            if (item == 0) {
+                break;
+            } else {
+                int price = getPriceForItem(category, item);
+                if (price > 0) {
+                    System.out.println("How many plates do you want?");
+                    int plates = sc.nextInt();
+                    total += price * plates;
+                    addSelectedItem(category, item, plates, price);
+                } else {
+                    System.out.println("Invalid selection. Please select a valid item.");
+                }
+            }
+        }
+        return total;
+    }
+
+    int getPriceForItem(String category, int item) {
+        if (category.equals("Starters")) {
+            switch (item) {
+                case 1: return 150;
+                case 2: return 100;
+                case 3: return 80;
+                default: return 0;
+            }
+        } else if (category.equals("Food")) {
+            switch (item) {
+                case 1: return 250;
+                case 2: return 300;
+                case 3: return 180;
+                default: return 0;
+            }
+        } else if (category.equals("Drinks")) {
+            switch (item) {
+                case 1: return 50;
+                case 2: return 70;
+                case 3: return 60;
+                default: return 0;
+            }
+        } else if (category.equals("Desserts")) {
+            switch (item) {
+                case 1: return 120;
+                case 2: return 100;
+                case 3: return 150;
+                default: return 0;
+            }
+        }
+        return 0;
+    }
+
+    void addSelectedItem(String category, int item, int plates, int price) {
+        String itemName = getItemName(category, item);
+        int totalItemPrice = plates * price;
+        selectedItems.add(itemName + " x " + plates + " = " + totalItemPrice);
+    }
+
+    String getItemName(String category, int item) {
+        if (category.equals("Starters")) {
+            switch (item) {
+                case 1: return "Paneer Tikka";
+                case 2: return "Veg Pakoras";
+                case 3: return "Veg Samosas";
+                default: return "Unknown";
+            }
+        } else if (category.equals("Food")) {
+            switch (item) {
+                case 1: return "Veg Biryani";
+                case 2: return "Paneer Butter Masala";
+                case 3: return "Veg Pulao";
+                default: return "Unknown";
+            }
+        } else if (category.equals("Drinks")) {
+            switch (item) {
+                case 1: return "Lemonade";
+                case 2: return "Fruit Juice";
+                case 3: return "Coconut Water";
+                default: return "Unknown";
+            }
+        } else if (category.equals("Desserts")) {
+            switch (item) {
+                case 1: return "Gulab Jamun";
+                case 2: return "Rasgulla";
+                case 3: return "Ice Cream";
+                default: return "Unknown";
+            }
+        }
+        return "Unknown";
+    }
+
+    void printTotalBill() {
+        System.out.println("**********************************");
+        System.out.println("Items                    price          ");
+        System.out.println("**********************************");
+
+        for (String item : selectedItems) {
+            System.out.println(item);
+        }
+
+        System.out.println("----------------------------------");
+        System.out.println("Total Amount: " + totalAmount);
+        System.out.println("Your Order was confirmed");
+        System.out.println("Thank you for Ordering the food");
+        System.out.println("We will deliver your food within 15 minutes");
+        System.out.println("Have A Good Day!!");
+    }
+}
