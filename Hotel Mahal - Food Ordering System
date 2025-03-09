@@ -15,7 +15,7 @@ class Hotel {
     int totalAmount = 0;
 
     void selectionOfFoodSection() {
-        System.out.println("Please select a food section:"); 
+        System.out.println("Please select a food section:");  
         System.out.println("1. Veg section");
         System.out.println("2. Non-Veg section");
         System.out.println("3. Both Veg and Non-Veg section");
