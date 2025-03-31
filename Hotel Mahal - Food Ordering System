@@ -38,7 +38,7 @@ class Hotel {
             return;
         }
 
-        printTotalBill();
+        printTotalBill(); 
     }
 
     int vegSection() {
