@@ -3,7 +3,7 @@
 A Project For Ordering The Food From A Hotel     
  
 
-Introduction
+Introduction     
 
 
 This is a simple console-based food ordering system for a restaurant called "Hotel Mahal." The system allows customers to select items from various food categories, calculate their total bill, and print the final order summary. The available food categories include Veg Starters, Veg Food, Veg Drinks, Veg Desserts, Non-Veg Starters, Non-Veg Food, Non-Veg Drinks, and Non-Veg Desserts.
